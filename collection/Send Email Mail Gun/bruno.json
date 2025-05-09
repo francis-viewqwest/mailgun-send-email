@@ -1,0 +1,9 @@
+{
+  "version": "1",
+  "name": "Send Email Mail Gun",
+  "type": "collection",
+  "ignore": [
+    "node_modules",
+    ".git"
+  ]
+}
