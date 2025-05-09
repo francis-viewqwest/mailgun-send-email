@@ -6,7 +6,7 @@ use Illuminate\Http\Request;
 
 class SendEmailController extends Controller
 {
-    public function  (Request $request)
+    public function sendEmail(Request $request)
     {
         $validated = $request->validate([
             'from' => 'required|email',
@@ -36,5 +36,4 @@ class SendEmailController extends Controller
 
         return response()->json(['message' => 'Email sent successfully']);
     }
-
 }
