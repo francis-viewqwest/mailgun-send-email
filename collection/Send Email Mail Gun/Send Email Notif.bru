@@ -4,8 +4,15 @@ meta {
   seq: 2
 }
 
-get {
-  url: {{localhost}}/test
-  body: none
+post {
+  url: {{localhost}}/send-email
+  body: multipartForm
   auth: none
+}
+
+body:multipart-form {
+  from: wd
+  to: wdwd
+  cc: wdwd
+  subject: wdw
 }
