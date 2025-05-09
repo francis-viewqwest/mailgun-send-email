@@ -15,14 +15,22 @@ class MailgunService
         $this->domain = env('MAILGUN_DOMAIN');
     }
 
-    public function sendEmail($to, $subject, $comment, $htmlContent)
+    public function sendEmail($from, $to, $subject, $html, $cc = [], $bcc = [], $attachments = [], $text = null)
     {
-        $this->mailgun->messages()->send($this->domain, [
-            'from'    => env('MAIL_FROM_ADDRESS', ''),
+        $params = [
+            'from'    => $from,
             'to'      => $to,
             'subject' => $subject,
-            'comment' => $comment,
-            'html'    => $htmlContent, 
-        ]);
+            'html'    => $html,
+        ];
+
+        if ($text) $params['text'] = $text;
+        if (!empty($cc)) $params['cc'] = $cc;
+        if (!empty($bcc)) $params['bcc'] = $bcc;
+        if (!empty($attachments)) {
+            $params['attachment'] = $attachments;
+        }
+
+        $this->mailgun->messages()->send($this->domain, $params);
     }
 }
