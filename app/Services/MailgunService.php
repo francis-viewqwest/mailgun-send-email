@@ -26,6 +26,12 @@ class MailgunService
             $payloads[$key] = $value;
         }
 
-        $this->mailgun->messages()->send($this->domain, $payloads);
+        $staticKeys = [
+            'from' => $this->from,
+        ];
+
+        $mergedPayload = array_merge($payloads, $staticKeys);
+
+        $this->mailgun->messages()->send($this->domain, $mergedPayload);
     }
 }
