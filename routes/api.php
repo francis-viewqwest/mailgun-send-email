@@ -18,3 +18,5 @@ Route::get('/test', function () {
 });
 
 Route::post('/send-email', [SendEmailController::class, 'sendEmail']);
+
+Route::post('/send-webhook', [SendEmailController::class, 'sendWebhook']);
