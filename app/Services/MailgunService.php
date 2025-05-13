@@ -8,28 +8,23 @@ class MailgunService
 {
     protected $mailgun;
     protected $domain;
+    protected $from;
 
     public function __construct()
     {
         $this->mailgun = Mailgun::create(env('MAILGUN_SECRET'));
         $this->domain = env('MAILGUN_DOMAIN');
+        $this->from = config('mail.from.address');
     }
 
-    public function sendEmail($from, $to, $subject, $html, $cc = [], $bcc = [], $attachments = [], $text = null)
+    public function sendEmail($to, $subject, $text)
     {
         $params = [
-            'from'    => $from,
+            'from' => $this->from,
             'to'      => $to,
             'subject' => $subject,
-            'html'    => $html,
+            'text' => $text,
         ];
-
-        if ($text) $params['text'] = $text;
-        if (!empty($cc)) $params['cc'] = $cc;
-        if (!empty($bcc)) $params['bcc'] = $bcc;
-        if (!empty($attachments)) {
-            $params['attachment'] = $attachments;
-        }
 
         $this->mailgun->messages()->send($this->domain, $params);
     }
