@@ -37,11 +37,11 @@
 
 <body>
     <div class="container">
-        <h1>Your ticket has been updated: {{ summary }}</h1>
+        <h1>Your ticket has been updated: {{ $summary }}</h1>
         <br>
-        <p>Status: {{ status }}</p>
+        <p>Status: {{ $status }}</p>
         <br>
-        <p>Comments: {{ comment }}</p>
+        <p>Comments: {{ $comment }}</p>
         <div class="footer">
             &copy; {{ date('Y') }}. All rights reserved.
         </div>

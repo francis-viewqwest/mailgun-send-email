@@ -47,24 +47,28 @@ class SendEmailController extends Controller
             'reporter' => 'required|email'
         ]);
 
-        // $validated['from'] = 'support@mg.yourdomain.com'; // sample domain on Mailgun
-        // $subject_issueKey = 'Update on Your Jira Ticket: ' . $validated['issueKey'];
+        $validated['from'] = env('MAILGUN_DOMAIN'); // sample domain on Mailgun
+        $validated['subject'] = 'Update on Your Jira Ticket: ' . $validated['issueKey'];
 
-        // $html = view('emails.send_webhook', [
-        //     'summary' => $validated['summary'],
-        //     'comment' => $validated['comment'],
-        //     'status' => $validated['status'],
-        // ])->render();
+        $html = view('emails.send_webhook', [
+            'summary' => $validated['summary'],
+            'comment' => $validated['comment'],
+            'status' => $validated['status'],
+        ])->render();
 
         // app('App\Services\MailgunService')->sendEmail(
         //     $validated['from'],
         //     $validated['reporter'],
-        //     $subject_issueKey,
+        //     $validated['subject'],
         //     $html
         // );
 
-        $request->input('issueKey');
+        // $request->input('issueKey');
 
-        return response()->json(['message' => 'Email sent successfully']);
+        return response()->json([
+            'message' => 'Email sent successfully', 
+            'jira' => $validated,
+            'html' => $html
+        ]);
     }
 }

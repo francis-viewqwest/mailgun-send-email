@@ -6,6 +6,14 @@ meta {
 
 post {
   url: {{localhost}}/send-webhook
-  body: none
+  body: formUrlEncoded
   auth: inherit
+}
+
+body:form-urlencoded {
+  issueKey: ticket-1234
+  summary: test summary
+  status: test status
+  comment: test comments
+  reporter: test@email.com
 }
