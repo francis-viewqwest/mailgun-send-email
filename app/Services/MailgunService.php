@@ -27,7 +27,7 @@ class MailgunService
         }
 
         $staticKeys = [
-            'from' => $this->from,
+            'from' => $this->from
         ];
 
         $mergedPayload = array_merge($payloads, $staticKeys);
