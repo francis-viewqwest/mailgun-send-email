@@ -17,15 +17,15 @@ class MailgunService
         $this->from = config('mail.from.address');
     }
 
-    public function sendEmail($to, $subject, $text)
+    public function sendEmail(array $inputs)
     {
-        $params = [
-            'from' => $this->from,
-            'to'      => $to,
-            'subject' => $subject,
-            'text' => $text,
-        ];
 
-        $this->mailgun->messages()->send($this->domain, $params);
+        $payloads = [];
+
+        foreach ($inputs as $key => $value) {
+            $payloads[$key] = $value;
+        }
+
+        $this->mailgun->messages()->send($this->domain, $payloads);
     }
 }
