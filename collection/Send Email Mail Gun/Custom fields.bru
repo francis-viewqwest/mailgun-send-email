@@ -1,5 +1,5 @@
 meta {
-  name: Send Issue Update
+  name: Custom fields
   type: http
   seq: 3
 }
@@ -27,6 +27,6 @@ body:multipart-form {
   subject: Hello from Mailgun Sandbox
   text: This is a test 10 email using Mailgun + PHP
   original_message_id: griponsethwork@gmail.com
-  thread_reference: reference
   issueKey: SP-1
+  ~thread_reference: reference
 }

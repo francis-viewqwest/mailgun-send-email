@@ -6,7 +6,7 @@ meta {
 
 post {
   url: {{localhost}}/webhook-receiver
-  body: json
+  body: multipartForm
   auth: none
 }
 
@@ -27,11 +27,12 @@ body:multipart-form {
   subject: Hello from Mailgun Sandbox
   text: This is a test 10 email using Mailgun + PHP
   issueKey: SP-1
-  summary: test summary
-  original_message_id: griponsethwork@gmail.com
-  thread_reference: test threed
-  ~status: test status
-  ~comment: test comment
-  ~reporter: test reporter
+  summary: test summary 1234567
+  status: test status 123
+  comment: test comment 123
+  reporter: test reporter 123
+  h:Message-Id: message ID 123
+  ~original_message_id: griponsethwork@gmail.com
+  ~thread_reference: test threed
   ~References: 
 }

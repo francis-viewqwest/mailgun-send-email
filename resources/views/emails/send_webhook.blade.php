@@ -38,11 +38,12 @@
 <body>
   @if ($message_id)
   <div class="container">
-    <h1>Replying to your issue... </h1>
+    <h1>Message ID: {{ $message_id }}</h1>
+    <h1>Replying to your issue... test</h1>
   </div>
   @else
   <div class="container">
-    <h1>Your ticket has been updated: {{ $summary }}</h1>
+    <h1>Your ticket has been updated: {{ $summary }} test</h1>
     <br>
     <p>Status: {{ $status }}</p>
     <br>

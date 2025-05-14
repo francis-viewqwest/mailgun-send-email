@@ -35,6 +35,7 @@ class MailgunService
 
         $response = $this->mailgun->messages()->send($this->domain, $mergedPayload);
 
+
         return $response;
     }
 }
