@@ -36,9 +36,6 @@ class SendEmailController extends Controller
 
     public function webhhookReceiver(Request $request)
     {
-
-        $inputs = $request->all();
-
         $html = view('emails.send_webhook', [
             'summary' => $request['summary'],
             'comment' => $request['comment'],
@@ -54,28 +51,7 @@ class SendEmailController extends Controller
 
         $mergedPayload = array_merge($request->all(), $params);
 
-        $response = app('App\Services\MailgunService')->sendEmail($mergedPayload);
-
-        $newId = method_exists($response, 'getId') ? $response->getId() : null;
-
-        $jiraPayload = [
-            'fields' => [
-                'customfield_10010' => $newId,
-                'customfield_10049' => $inputs['original_message_id'],
-                'customfield_10050' => $inputs['thread_reference'],
-            ]
-        ];
-
-
-
-        $jiraIssueKey = $inputs['issueKey'];
-        $jiraResponse = Http::withBasicAuth(env('JIRA_EMAIL'), env('JIRA_API_TOKEN'))
-            ->put(env('JIRA_BASE_URL') . "/rest/api/3/issue/{$jiraIssueKey}", $jiraPayload);
-
-        return response()->json([
-            'mailgun_id' => method_exists($response, 'getId') ? $response->getId() : null,
-            'jira' => $jiraResponse->json()
-        ]);
+        app('App\Services\MailgunService')->sendEmail($mergedPayload);
     }
 
     public function sendEmailCustomFields(Request $request)
