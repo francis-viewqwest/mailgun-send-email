@@ -5,7 +5,28 @@ meta {
 }
 
 post {
-  url: {{localhost}}/issue-update
-  body: none
+  url: {{localhost}}/email-customfields
+  body: multipartForm
   auth: inherit
+}
+
+body:json {
+  {
+    "to": "francis.santander@viewqwest.com",
+    "subject": "Hello from Mailgun",
+    "text": "sample test text",
+    "issueKey": "SP-1",
+    "summary": "test summary",
+    "original_message_id": "griponsethwork@gmail.com",
+    "thread_reference": "test threed"
+  }
+}
+
+body:multipart-form {
+  to: francis.santander@viewqwest.com
+  subject: Hello from Mailgun Sandbox
+  text: This is a test 10 email using Mailgun + PHP
+  original_message_id: griponsethwork@gmail.com
+  thread_reference: reference
+  issueKey: SP-1
 }

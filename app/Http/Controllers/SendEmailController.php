@@ -60,17 +60,13 @@ class SendEmailController extends Controller
         $inputs = $request->all();
 
         $mailgunPayload = [
-            'from' => $this->from,
-            'to' => $inputs['to'],
-            'subject' => $inputs['subject'],
-            'text' => $inputs['text'],
             // 'h:Message-ID' => $inputs['new_message_id'],
             'h:In-Reply-To' => $inputs['original_message_id'],
             'h:References' => $inputs['thread_reference']
         ];
 
         //* Send the email
-        $response = $this->mailgun->messages()->send($this->domain, $mailgunPayload);
+        $response = app('App\Services\MailgunService')->sendEmail($inputs);
 
         $jiraIssueKey = $inputs['issueKey'];
         $newId = method_exists($response, 'getId') ? $response->getId() : null;
