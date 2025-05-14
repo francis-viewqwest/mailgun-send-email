@@ -67,7 +67,47 @@ class SendEmailController extends Controller
         ];
 
 
+
         $jiraIssueKey = $inputs['issueKey'];
+        $jiraResponse = Http::withBasicAuth(env('JIRA_EMAIL'), env('JIRA_API_TOKEN'))
+            ->put(env('JIRA_BASE_URL') . "/rest/api/3/issue/{$jiraIssueKey}", $jiraPayload);
+
+        return response()->json([
+            'mailgun_id' => method_exists($response, 'getId') ? $response->getId() : null,
+            'jira' => $jiraResponse->json()
+        ]);
+    }
+
+    public function sendEmailCustomFields(Request $request)
+    {
+
+        $inputs = $request->all();
+
+        $mailgunPayload = [
+            'from' => $this->from,
+            'to' => $inputs['to'],
+            'subject' => $inputs['subject'],
+            'text' => $inputs['text'],
+            // 'h:Message-ID' => $inputs['new_message_id'],
+            'h:In-Reply-To' => $inputs['original_message_id'],
+            'h:References' => $inputs['thread_reference']
+        ];
+
+        //* Send the email
+        $response = $this->mailgun->messages()->send($this->domain, $mailgunPayload);
+
+        $jiraIssueKey = $inputs['issueKey'];
+        $newId = method_exists($response, 'getId') ? $response->getId() : null;
+
+        $jiraPayload = [
+            'fields' => [
+                'customfield_10010' => $newId,
+                'customfield_10049' => $inputs['original_message_id'],
+                'customfield_10050' => $inputs['thread_reference'],
+            ]
+        ];
+
+        //* Send to Jira
         $jiraResponse = Http::withBasicAuth(env('JIRA_EMAIL'), env('JIRA_API_TOKEN'))
             ->put(env('JIRA_BASE_URL') . "/rest/api/3/issue/{$jiraIssueKey}", $jiraPayload);
 
