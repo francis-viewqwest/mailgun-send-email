@@ -44,12 +44,12 @@ class SendEmailController extends Controller
             'summary' => $inputs['summary'] ?? false,
             'status' => $inputs['status'] ?? false,
             'comment' => $inputs['comment'] ?? false,
-            'h:In-Reply-To' => $inputs['h:In-Reply-To'] ?? false
+            'in_reply_to' => $inputs['h:In-Reply-To'] ?? false
         ])->render();
 
         $params = [
             'to' => $inputs['to'] ?? $inputs['reporter'],
-            'subject' => $inputs['h:Message-Id'] ? 'RE: ' . $inputs['issueKey'] . ' Ticket Update' : 'Update on Your Jira Ticket: ' . $inputs['issueKey'],
+            'subject' => array_key_exists('h:In-Reply-To', $inputs) ? 'RE: (' . $inputs['issueKey'] . ') Ticket Update' : 'Update on Your Jira Ticket: ' . $inputs['issueKey'],
             'html' => $html
         ];
 

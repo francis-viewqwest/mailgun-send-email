@@ -5,54 +5,84 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <meta http-equiv="X-UA-Compatible" content="ie=edge">
-  <title>Document</title>
+  <title>MailGun Sender</title>
+  <style>
+    body {
+      background-color: #f9f9f9;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      color: black;
+    }
+
+    .logo {
+      width: 256px;
+      height: auto;
+    }
+
+    .container {
+      background: #fff;
+      padding: 20px;
+      border-radius: 8px;
+    }
+
+    .section {
+      margin-top: 20px;
+    }
+
+    .section h3 {
+      font-size: 18px;
+      font-weight: bold;
+    }
+
+    .footer {
+      margin: auto;
+      padding: 16px;
+      background-color: #241F21;
+      color: white;
+      border-top: 2px solid #E51A2C;
+      text-align: center;
+      font-size: 12px;
+    }
+
+    .footer a {
+      color: #E51A2C;
+      text-decoration: none;
+    }
+  </style>
 </head>
-<style>
-  body {
-    font-family: Arial, sans-serif;
-    background-color: #f9f9f9;
-    padding: 20px;
-  }
-
-  .container {
-    background: #fff;
-    padding: 20px;
-    border-radius: 8px;
-  }
-
-  h1 {
-    color: #333;
-  }
-
-  p {
-    color: #555;
-  }
-
-  .footer {
-    font-size: 12px;
-    color: #999;
-    margin-top: 20px;
-  }
-</style>
 
 <body>
-  @if ($message_id)
   <div class="container">
-    <h1>Message ID: {{ $message_id }}</h1>
-    <h1>Replying to your issue... test</h1>
-  </div>
-  @else
-  <div class="container">
-    <h1>Your ticket has been updated: {{ $summary }} test</h1>
-    <br>
-    <p>Status: {{ $status }}</p>
-    <br>
-    <p>Comments: {{ $comment }}</p>
+    <img src="https://viewqwest.com/sg/wp-content/uploads/2023/12/aboutlogo.png" class="logo"
+      alt="ViewQwest Logo">
+    @if ($in_reply_to)
+    <div class="container">
+      <div class="section">
+        <h3>Replying to your issue... </h3>
+        <br>
+        <h4>In-Reply-To: {{ $in_reply_to }}</h4>
+        <h4>Message ID: {{ $message_id }}</h4>
+        @if ($status) <p>Status: {{ $status }}</p> @endif
+        @if ($comment) <p>Comments: {{ $comment }}</p> @endif
+      </div>
+    </div>
+    @else
+    <div class="container">
+      <div class="section">
+        <h3>Your ticket has been updated: {{ $summary }}</h3>
+        <h4>Message ID: {{ $message_id }}</h4>
+        @if ($status) <p>Status: {{ $status }}</p> @endif
+        @if ($comment) <p>Comments: {{ $comment }}</p> @endif
+      </div>
+    </div>
+    @endif
     <div class="footer">
-      &copy; {{ date('Y') }}. All rights reserved.
+      Copyright &copy; {{ date('Y') }}. ViewQwest, All rights reserved.
     </div>
   </div>
-  @endif
 </body>
 
 </html>
