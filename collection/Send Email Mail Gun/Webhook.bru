@@ -1,12 +1,12 @@
 meta {
-  name: Send Custom Fields
+  name: Webhook
   type: http
   seq: 4
 }
 
 post {
   url: {{localhost}}/webhook-receiver
-  body: multipartForm
+  body: json
   auth: none
 }
 

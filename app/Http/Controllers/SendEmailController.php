@@ -77,7 +77,7 @@ class SendEmailController extends Controller
 
         $jiraPayload = [
             'fields' => [
-                'customfield_10010' => $newId,
+                'customfield_10059' => $newId,
                 'customfield_10049' => $inputs['original_message_id'],
                 'customfield_10050' => $inputs['thread_reference'],
             ]
