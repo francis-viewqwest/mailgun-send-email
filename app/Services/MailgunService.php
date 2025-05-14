@@ -3,6 +3,7 @@
 namespace App\Services;
 
 use Mailgun\Mailgun;
+use Illuminate\Support\Facades\Http;
 
 class MailgunService
 {
@@ -32,6 +33,8 @@ class MailgunService
 
         $mergedPayload = array_merge($payloads, $staticKeys);
 
-        $this->mailgun->messages()->send($this->domain, $mergedPayload);
+        $response = $this->mailgun->messages()->send($this->domain, $mergedPayload);
+
+        return $response;
     }
 }

@@ -1,0 +1,37 @@
+meta {
+  name: Send Custom Fields
+  type: http
+  seq: 4
+}
+
+post {
+  url: {{localhost}}/webhook-receiver
+  body: multipartForm
+  auth: none
+}
+
+body:json {
+  {
+    "to": "francis.santander@viewqwest.com",
+    "subject": "Hello from Mailgun",
+    "text": "sample test text",
+    "issueKey": "SP-1",
+    "summary": "test summary",
+    "original_message_id": "griponsethwork@gmail.com",
+    "thread_reference": "test threed"
+  }
+}
+
+body:multipart-form {
+  to: francis.santander@viewqwest.com
+  subject: Hello from Mailgun Sandbox
+  text: This is a test 10 email using Mailgun + PHP
+  issueKey: SP-1
+  summary: test summary
+  original_message_id: griponsethwork@gmail.com
+  ~status: test status
+  ~comment: test comment
+  ~reporter: test reporter
+  ~thread_reference: test threed
+  ~References: 
+}
