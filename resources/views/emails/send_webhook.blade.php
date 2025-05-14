@@ -58,27 +58,22 @@
   <div class="container">
     <img src="https://viewqwest.com/sg/wp-content/uploads/2023/12/aboutlogo.png" class="logo"
       alt="ViewQwest Logo">
-    @if ($in_reply_to)
     <div class="container">
       <div class="section">
+        @if ($in_reply_to)
         <h3>Replying to your issue... </h3>
         <br>
         <h4>In-Reply-To: {{ $in_reply_to }}</h4>
         <h4>Message ID: {{ $message_id }}</h4>
-        @if ($status) <p>Status: {{ $status }}</p> @endif
-        @if ($comment) <p>Comments: {{ $comment }}</p> @endif
-      </div>
-    </div>
-    @else
-    <div class="container">
-      <div class="section">
+        @else
         <h3>Your ticket has been updated: {{ $summary }}</h3>
         <h4>Message ID: {{ $message_id }}</h4>
+        @endif
+        
         @if ($status) <p>Status: {{ $status }}</p> @endif
         @if ($comment) <p>Comments: {{ $comment }}</p> @endif
       </div>
     </div>
-    @endif
     <div class="footer">
       Copyright &copy; {{ date('Y') }}. ViewQwest, All rights reserved.
     </div>
