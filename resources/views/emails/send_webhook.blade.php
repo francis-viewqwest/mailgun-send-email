@@ -31,12 +31,7 @@
     .section {
       margin-top: 20px;
     }
-
-    .section h3 {
-      font-size: 18px;
-      font-weight: bold;
-    }
-
+    
     .footer {
       margin: auto;
       padding: 16px;
@@ -61,13 +56,13 @@
     <div class="container">
       <div class="section">
         @if ($in_reply_to)
-        <h3>Replying to your issue... </h3>
+        <h2>Replying to your issue... </h2>
         <br>
-        <h4>In-Reply-To: {{ $in_reply_to }}</h4>
+        <h3>In-Reply-To: {{ $in_reply_to }}</h3>
         <h4>Message ID: {{ $message_id }}</h4>
         @else
-        <h3>Your ticket has been updated: {{ $summary }}</h3>
-        <h4>Message ID: {{ $message_id }}</h4>
+        <h2>Your ticket has been updated: {{ $summary }}</h2>
+        <h3>Message ID: {{ $message_id }}</h3>
         @endif
         
         @if ($status) <p>Status: {{ $status }}</p> @endif
